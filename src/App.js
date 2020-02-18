@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Navbar from './components/navbar';
 import Brand from './components/brand';
 import Transport from './components/transport';
+import MainContent from './components/maincontent';
 import {
     BrowserRouter as Router,
     Switch,
@@ -20,6 +21,7 @@ class App extends Component {
                         <Route exact path="/Brand" component={Brand}/>
                         <Route exact path="/Transport" component={Transport}/>
                     </Switch>
+                    <MainContent />
                 </div>
             </Router>
         );
