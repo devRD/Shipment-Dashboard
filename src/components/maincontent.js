@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import Card from './card';
-
-
+import Table from './table';
+import '../stylesheets/table.css';
 
 class MainContent extends Component{
 
@@ -16,11 +16,6 @@ class MainContent extends Component{
         this.state = {
             shipments: []
         };
-
-        this.tokenPayload = this.tokenPayload.bind(this);
-    }
-
-    tokenPayload(){
 
     }
 
@@ -42,15 +37,55 @@ class MainContent extends Component{
              config
         ).then(res => {
             const items = res.data.data;
-            console.log(items);
+            this.setState({shipments: items});
+            console.log(this.state.shipments);
         })
         .catch((err) => console.log(err));
     }
 
 
     render() {
+
+        const { shipments } = this.state;
+
         return(
-            <div className="text-right">
+            <div className="">
+            <table >
+                <thead>
+                   <tr>
+                       <th>AWB NUMBER</th>
+                       <th>TRANSPORTER</th>
+                       <th>SOURCE</th>
+                       <th>DESTINATION</th>
+                       <th>BRAND</th>
+                       <th>START DATE</th>
+                       <th>ETD</th>
+                       <th>STATUS</th>
+                   </tr>
+                </thead>
+                {shipments.map(items => {
+                    const { _id, awbno, carrier, pickup_date, current_status, from, to } = items;
+                    console.log(typeof pickup_date);
+                    const time = new Date(pickup_date);
+                    const format = time.toLocaleString({day: 'numeric'});
+                        return(
+                            <React.Fragment>
+                                <Table
+                                    key = {_id}
+                                    awb = {awbno} 
+                                    transport = {carrier}
+                                    src = {from} 
+                                    dest = {to}
+                                    brand = {carrier}
+                                    start = {pickup_date}
+                                    etd = {pickup_date}
+                                    stat = {current_status}
+                                 />
+                            </React.Fragment>
+                        )
+                    })
+                }
+                </table>                
             </div>
         );
     }

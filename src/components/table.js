@@ -1,44 +1,24 @@
 import React from 'react'
+import '../stylesheets/table.css';
 
-const Table = () => {
+const Table = (props) => {
+    let statclass = (props.stat === 'Delivered') ?  'text-success' 
+                    : (props.stat === 'Undelivered') ? 'text-danger' 
+                    : 'text-info';
     return(
-        <table>
-            <tr>
-                 <th>Company</th>
-                 <th>Contact</th>
-                 <th>Country</th>
-            </tr>
-            <tr>
-                <td>Alfreds Futterkiste</td>
-                <td>Maria Anders</td>
-                <td>Germany</td>
-            </tr>
-            <tr>
-                <td>Centro comercial Moctezuma</td>
-                 <td>Francisco Chang</td>
-                <td>Mexico</td>
-            </tr>
-            <tr>
-                <td>Ernst Handel</td>
-                <td>Roland Mendel</td>
-                <td>Austria</td>
-            </tr>
-            <tr>
-                <td>Island Trading</td>
-                <td>Helen Bennett</td>
-                <td>UK</td>
-            </tr>
-            <tr>
-                <td>Laughing Bacchus Winecellars</td>
-                <td>Yoshi Tannamuri</td>
-                <td>Canada</td>
-            </tr>
-            <tr>
-                <td>Magazzini Alimentari Riuniti</td>
-                <td>Giovanni Rovelli</td>
-                <td>Italy</td>
-            </tr>
-          </table>
+     <tbody className="ml-5">
+         <tr className="text-center">
+            <td>{props.awb}</td>
+            <td>{props.transport}</td>
+            <td>{props.src}</td>
+            <td>{props.dest}</td>
+            <td>{props.brand}</td>
+            <td>{props.start}</td>
+            <td>{props.etd}</td>
+            <td className={statclass}>{props.stat}</td>
+        </tr>
+      </tbody>
+
     )
 };
 
