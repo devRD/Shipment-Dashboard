@@ -1,0 +1,11 @@
+.timeline{
+    border: 1px solid black;
+}
+.timeline-item span{
+    font-size: 0.8em;
+}
+.timeline-icon{
+    background-color: lightblue;
+    padding: 5px;
+    border-radius: 50%;
+}

@@ -6,15 +6,16 @@ const Card = (props) => {
         <div className="card mb-5 mt-5 ml-2"
             style={{
                 "width": "8rem",
-                "border-radius": "0.50rem",
+                "borderRadius": "0.50rem",
             }}
+            onClick={props.onClick}
         >
             <div className="card-body">
                  <h5 className="card-title text-left">{props.type}</h5>
                  <p className="card-text text-center"
                     style={{
-                        "font-size": "2em",
-                        "font-weight": "lighter",
+                        "fontSize": "2em",
+                        "fontWeight": "lighter",
                     }}
                  > 
                     {props.num}

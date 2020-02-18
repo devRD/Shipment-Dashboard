@@ -6,6 +6,7 @@ import Table from './table';
 import warehouse from '../FrontEndAssets/warehouse.svg';
 import destination from '../FrontEndAssets/destination.svg';
 import '../stylesheets/table.css';
+import '../stylesheets/timeline.css';
 
 class MainContent extends Component{
 
@@ -22,10 +23,6 @@ class MainContent extends Component{
         this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick(e){
-        alert("Click!");
-        console.log("hello");
-    }
 
     componentDidMount(){
         const config = {
@@ -50,6 +47,19 @@ class MainContent extends Component{
         .catch((err) => console.log(err));
     }
 
+    handleClick = params => (e) => {
+        console.log(params);
+        const { shipments } = this.state;
+        let data = [];
+        let temp = shipments.map( items => {
+            const scan = items.scan;
+            for(let i in scan){
+                data.push(scan[i]);
+            }                
+        });
+        console.log(typeof obj, typeof data);
+    }
+
 
     render() {
 
@@ -57,11 +67,9 @@ class MainContent extends Component{
         let dataArray = [];
         let temp = shipments.map( items =>{
             const scan = items.scan;
-            for(let i in scan){
-                dataArray.push(scan[i]);
-            }                
+            console.log(scan);
+            dataArray = scan;
         });
-        let k = 0;
         const filters= ["OOD", "INT", "DEL", "DEX", "NFI"];
         let counters = {
             ood: 0,
@@ -90,22 +98,21 @@ class MainContent extends Component{
             <div className="container-fluid">
             <div className = "d-flex justify-content-center">
             
-               <Card type = "DEL" num = {counters.del} onClick={this.handleClick}/>
-               <Card type = "INT" num = {counters.intt} onClick={this.handleClick}/>
-               <Card type = "OOD" num = {counters.ood} onClick={this.handleClick}/>
-               <Card type = "DEX" num = {counters.dex} onClick={this.handleClick}/>
-               <Card type = "NFI" num = {counters.nfi} onClick={this.handleClick}/>
+               <Card type = "DEL" num = {counters.del} onClick={this.handleClick("DEL")}/>
+               <Card type = "INT" num = {counters.intt} onClick={this.handleClick("INT")} />
+               <Card type = "OOD" num = {counters.ood} onClick={this.handleClick("OOD")}/>
+               <Card type = "DEX" num = {counters.dex} onClick={this.handleClick("DEX")}/>
+               <Card type = "NFI" num = {counters.nfi} onClick={this.handleClick("NFI")}/>
             </div>
             <div className="row">
             <div className="col-4">
-            HELLO
-            {/*
+            
+            
             <img src = {destination} height="40" width="40" alt="destination" 
-                 style={{"backgroundColor": "lightblue", "padding": "5px", "borderRadius": "50%"}} />
+                 className="timeline-icon" />
 
-            {dataArray.map((items, index) => {
+            {dataArray.slice(0, dataArray.length).map((items, index) => {
                 const {time, location} = items;
-                console.log(index + 1);
                    return (
                        <React.Fragment>
                            <Timeline key={index + 1} scanStat = {location} scanDate = {time} scanTime = {time} />
@@ -115,7 +122,8 @@ class MainContent extends Component{
             }
 
             <img src = {warehouse} height="40" width="40" alt="warehouse"
-                 style={{"backgroundColor": "lightblue", "padding": "10px", "borderRadius" : "50%"}} />*/}
+                 className="timeline-icon" />
+            
             </div>
             <div className="col-8">
             <table className="table-responsive">
