@@ -105,7 +105,7 @@ class MainContent extends Component{
                <Card type = "NFI" num = {counters.nfi} onClick={this.handleClick("NFI")}/>
             </div>
             <div className="row">
-            <div className="col-4">
+            <div className="col-4 timeline-view">
             
             
             <img src = {destination} height="40" width="40" alt="destination" 
@@ -115,7 +115,12 @@ class MainContent extends Component{
                 const {time, location} = items;
                    return (
                        <React.Fragment>
-                           <Timeline key={index + 1} scanStat = {location} scanDate = {time} scanTime = {time} />
+                           <Timeline  
+                                    key={index + 1}
+                                    scanStat = {location}
+                                    scanDate = {time}
+                                    scanTime = {time}
+                            />
                        </React.Fragment>
                      )
                 })
