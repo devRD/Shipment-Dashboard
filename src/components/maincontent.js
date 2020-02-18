@@ -67,9 +67,22 @@ class MainContent extends Component{
         let dataArray = [];
         let temp = shipments.map( items =>{
             const scan = items.scan;
-            console.log(scan);
             dataArray = scan;
         });
+        let i, j, count = [];
+
+        for(i in shipments){
+            let t = shipments[i].scan;
+            console.log(`${i}th`)
+            for(j in t){
+                const { time, location } = t[j];
+                console.log("Time:", time, "Location:", location);
+            }
+            count.push(parseInt(j) + 1);
+            console.log(count);
+        }
+
+        let k = 0;
         const filters= ["OOD", "INT", "DEL", "DEX", "NFI"];
         let counters = {
             ood: 0,
@@ -94,6 +107,7 @@ class MainContent extends Component{
             }
         });
 
+
         return(
             <div className="container-fluid">
             <div className = "d-flex justify-content-center">
@@ -111,7 +125,8 @@ class MainContent extends Component{
             <img src = {destination} height="40" width="40" alt="destination" 
                  className="timeline-icon" />
 
-            {dataArray.slice(0, dataArray.length).map((items, index) => {
+            {dataArray.slice(0, count[k] + 3).map((items, index) => {
+                console.log(count[k]);
                 const {time, location} = items;
                    return (
                        <React.Fragment>
