@@ -19,7 +19,12 @@ class MainContent extends Component{
         this.state = {
             shipments: []
         };
+        this.handleClick = this.handleClick.bind(this);
+    }
 
+    handleClick(e){
+        alert("Click!");
+        console.log("hello");
     }
 
     componentDidMount(){
@@ -67,7 +72,6 @@ class MainContent extends Component{
         };
 
         const code = shipments.map( items => {
-            console.log(items.current_status_code);
             switch(items.current_status_code){
                 case "DEL" : counters.del++;
                 break;
@@ -81,17 +85,16 @@ class MainContent extends Component{
                 break;
             }
         });
-        console.log(counters);
 
         return(
             <div className="container-fluid">
-            <div className = "d-flex justify-content-end">
+            <div className = "d-flex justify-content-center">
             
-               <Card type = "DEL" num = {counters.del}/>
-               <Card type = "INT" num = {counters.intt}/>
-               <Card type = "OOD" num = {counters.ood}/>
-               <Card type = "DEX" num = {counters.dex}/>
-               <Card type = "NFI" num = {counters.nfi}/>
+               <Card type = "DEL" num = {counters.del} onClick={this.handleClick}/>
+               <Card type = "INT" num = {counters.intt} onClick={this.handleClick}/>
+               <Card type = "OOD" num = {counters.ood} onClick={this.handleClick}/>
+               <Card type = "DEX" num = {counters.dex} onClick={this.handleClick}/>
+               <Card type = "NFI" num = {counters.nfi} onClick={this.handleClick}/>
             </div>
             <div className="row">
             <div className="col-4">
@@ -136,7 +139,7 @@ class MainContent extends Component{
                             <React.Fragment>
                                 <Table
                                     key = {_id}
-                                    awb = {awbno} 
+                                    awb = {`#${awbno}`} 
                                     transport = {carrier}
                                     src = {from} 
                                     dest = {to}
