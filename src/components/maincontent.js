@@ -50,7 +50,7 @@ class MainContent extends Component{
 
         return(
             <div className="">
-            <table >
+            <table className="table-responsive">
                 <thead>
                    <tr>
                        <th>AWB NUMBER</th>

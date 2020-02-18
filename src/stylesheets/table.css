@@ -1,0 +1,18 @@
+.table-responsive {
+    position: absolute;
+    bottom: 10px;
+    right: 10px; 
+    width: 70vw;
+    max-height: 60vh;
+    font-size: 0.8em;
+    border: 2px solid #EEE;
+    border-radius: 4px;
+    padding: 10px;
+}
+.table-responsive thead th{
+    color: #BBB;
+    font-size: 0.75em;
+}
+.table-responsive tbody td{
+    padding: 10px;
+}

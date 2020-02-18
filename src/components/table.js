@@ -1,5 +1,4 @@
 import React from 'react'
-import '../stylesheets/table.css';
 
 const Table = (props) => {
     let statclass = (props.stat === 'Delivered') ?  'text-success' 
