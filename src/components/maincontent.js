@@ -65,9 +65,8 @@ class MainContent extends Component{
                 </thead>
                 {shipments.map(items => {
                     const { _id, awbno, carrier, pickup_date, current_status, from, to } = items;
-                    console.log(typeof pickup_date);
                     const time = new Date(pickup_date);
-                    const format = time.toLocaleString({day: 'numeric'});
+                    const format = time.toLocaleDateString({day: 'numeric'});
                         return(
                             <React.Fragment>
                                 <Table
@@ -77,8 +76,8 @@ class MainContent extends Component{
                                     src = {from} 
                                     dest = {to}
                                     brand = {carrier}
-                                    start = {pickup_date}
-                                    etd = {pickup_date}
+                                    start = {format}
+                                    etd = {format}
                                     stat = {current_status}
                                  />
                             </React.Fragment>
