@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import Card from './card';
+import Timeline from './timeline';
 import Table from './table';
+import warehouse from '../FrontEndAssets/warehouse.svg';
+import destination from '../FrontEndAssets/destination.svg';
 import '../stylesheets/table.css';
 
 class MainContent extends Component{
@@ -38,7 +41,6 @@ class MainContent extends Component{
         ).then(res => {
             const items = res.data.data;
             this.setState({shipments: items});
-            console.log(this.state.shipments);
         })
         .catch((err) => console.log(err));
     }
@@ -47,9 +49,72 @@ class MainContent extends Component{
     render() {
 
         const { shipments } = this.state;
+        let dataArray = [];
+        let temp = shipments.map( items =>{
+            const scan = items.scan;
+            for(let i in scan){
+                dataArray.push(scan[i]);
+            }                
+        });
+        let k = 0;
+        const filters= ["OOD", "INT", "DEL", "DEX", "NFI"];
+        let counters = {
+            ood: 0,
+            intt: 0,
+            del: 0,
+            dex: 0,
+            nfi: 0,
+        };
+
+        const code = shipments.map( items => {
+            console.log(items.current_status_code);
+            switch(items.current_status_code){
+                case "DEL" : counters.del++;
+                break;
+                case "INT" : counters.intt++;
+                break;
+                case "DEX" : counters.dex++;
+                break;
+                case "OOD" : counters.ood++;
+                break;
+                case "NFI" : counters.nfi++;
+                break;
+            }
+        });
+        console.log(counters);
 
         return(
-            <div className="">
+            <div className="container-fluid">
+            <div className = "row ml-auto">
+            
+               <Card type = "DEL" num = {counters.del}/>
+               <Card type = "INT" num = {counters.intt}/>
+               <Card type = "OOD" num = {counters.ood}/>
+               <Card type = "DEX" num = {counters.dex}/>
+               <Card type = "NFI" num = {counters.nfi}/>
+            </div>
+            <div className="row">
+            <div className="col-4">
+            HELLO
+            {/*
+            <img src = {destination} height="40" width="40" alt="destination" 
+                 style={{"backgroundColor": "lightblue", "padding": "5px", "borderRadius": "50%"}} />
+
+            {dataArray.map((items, index) => {
+                const {time, location} = items;
+                console.log(index + 1);
+                   return (
+                       <React.Fragment>
+                           <Timeline key={index + 1} scanStat = {location} scanDate = {time} scanTime = {time} />
+                       </React.Fragment>
+                     )
+                })
+            }
+
+            <img src = {warehouse} height="40" width="40" alt="warehouse"
+                 style={{"backgroundColor": "lightblue", "padding": "10px", "borderRadius" : "50%"}} />*/}
+            </div>
+            <div className="col-8">
             <table className="table-responsive">
                 <thead>
                    <tr>
@@ -84,7 +149,9 @@ class MainContent extends Component{
                         )
                     })
                 }
-                </table>                
+                </table>
+                </div>
+                </div> 
             </div>
         );
     }

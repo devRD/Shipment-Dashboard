@@ -8,9 +8,7 @@ const Navbar = () => {
         <nav
             className="navbar navbar-expand-lg navbar-light bg-light"
             style={{
-                "-webkit-box-shadow": "0px 4px 35px 0px rgba(217,217,217,1)",
-                "-moz-box-shadow": "0px 4px 35px 0px rgba(217,217,217,1)",
-                "box-shadow": "0px 4px 35px 0px rgba(217,217,217,1)",
+                "boxShadow": "0px 4px 35px 0px rgba(217,217,217,1)",
             }}
          >
           <NavLink to="/" className="navbar-brand">
@@ -48,8 +46,8 @@ const Navbar = () => {
                          style={{
                             "margin": "0 0.5em",
                             "padding": "10px 10px",
-                            "background-color" : "#bbb",
-                            "border-radius": "50%",
+                            "backgroundColor" : "#bbb",
+                            "borderRadius": "50%",
                          }}
                      >
                          <img src= {profile} 
