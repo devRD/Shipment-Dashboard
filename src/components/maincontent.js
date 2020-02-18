@@ -85,7 +85,7 @@ class MainContent extends Component{
 
         return(
             <div className="container-fluid">
-            <div className = "row ml-auto">
+            <div className = "d-flex justify-content-end">
             
                <Card type = "DEL" num = {counters.del}/>
                <Card type = "INT" num = {counters.intt}/>

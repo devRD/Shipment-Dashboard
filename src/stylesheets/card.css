@@ -1,0 +1,10 @@
+.card{
+    background-color: #afd2f7;
+    border: none;
+    color: #203ee8;
+    cursor: pointer;
+}
+.card:active{
+    background-color: #203ee8;
+    color: #FFF;
+}

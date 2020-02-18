@@ -1,10 +1,11 @@
 import React from 'react';
+import '../stylesheets/card.css';
 
 const Card = (props) => {
     return(
-        <div className="card text-white bg-primary mb-3 mt-5 ml-2"
+        <div className="card mb-5 mt-5 ml-2"
             style={{
-                "width": "10rem",
+                "width": "8rem",
                 "border-radius": "0.50rem",
             }}
         >
