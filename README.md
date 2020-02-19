@@ -8,13 +8,11 @@ Check out the progress so far [here](http://pretty-juice.surge.sh/).
 
 In the project directory, you can run:
 
-### [](https://github.com/devRD/Shipment-Dashboard#yarn-start)`yarn start` or `npm start`
+#### [](https://github.com/devRD/Shipment-Dashboard#yarn-start)`yarn start` or `npm start`
 
 It will run the app in the development mode.  
 Open  [http://localhost:3000](http://localhost:3000/)  to view it in the browser.
 
-The page will reload if you make edits.  
-You will also see any lint errors in the console.
 
 #### [](https://github.com/devRD/Shipment-Dashboard#yarn-test)`yarn test` or `npm test`
 
@@ -25,9 +23,6 @@ See the section about  [running tests](https://facebook.github.io/create-react-a
 
 Builds the app for production to the  `build`  folder.  
 It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.  
-Your app is ready to be deployed!
 
 See the section about  [deployment](https://facebook.github.io/create-react-app/docs/deployment)  for more information.
 
