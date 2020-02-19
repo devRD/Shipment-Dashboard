@@ -2,7 +2,7 @@
 
 This is a design for a shipment dashboard, which shows the status of the respective shipments in a timeline and also filters the shipments which are required accordingly. eg: Delivered, Not Delivered etc.
 
-Check out the progress so far [here](belligerent-club.surge.sh).
+Check out the progress so far [here](http://belligerent-club.surge.sh/).
 
 ### [](https://github.com/devRD/Shipment-Dashboard#available-scripts)Available Scripts
 
