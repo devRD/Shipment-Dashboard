@@ -1,12 +1,24 @@
 .timeline{
+
+}
+.timeline-item{
+    display: table-row;
+    display: list-item;
+    list-style: square;
+    list-style-position: outside;
 }
 .timeline-item span{
     font-size: 0.8em;
+    font-weight: 500;
+    display: table-cell;
+    padding: 4px;
+    line-height: 2;
 }
 .timeline-icon{
     background-color: lightblue;
     padding: 5px;
     border-radius: 50%;
+    
 }
 .timeline-view {
     padding: 1em;

@@ -123,18 +123,21 @@ class MainContent extends Component{
             
             
             <img src = {destination} height="40" width="40" alt="destination" 
-                 className="timeline-icon" />
+                 className="timeline-icon d-flex justify-content-start" />
 
             {dataArray.slice(0, count[k] + 3).map((items, index) => {
                 console.log(count[k]);
                 const {time, location} = items;
+                const  date = new Date(time);
+                let format = date.toLocaleDateString({day: "numeric"});
+                let formatTime = date.toLocaleTimeString();
                    return (
                        <React.Fragment>
                            <Timeline  
                                     key={index + 1}
                                     scanStat = {location}
-                                    scanDate = {time}
-                                    scanTime = {time}
+                                    scanDate = {format}
+                                    scanTime = {formatTime}
                             />
                        </React.Fragment>
                      )
@@ -142,7 +145,7 @@ class MainContent extends Component{
             }
 
             <img src = {warehouse} height="40" width="40" alt="warehouse"
-                 className="timeline-icon" />
+                 className="timeline-icon d-flex justify-content-start" />
             
             </div>
             <div className="col-8">
