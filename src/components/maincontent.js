@@ -12,9 +12,8 @@ class MainContent extends Component{
 
     constructor(props){
         super(props);
-
         this.id_token = "tTU3gFVUdP";
-        this. email = "ratnabalidutta26@gmail.com";
+        this.email = "ratnabalidutta26@gmail.com";
         this.name = "ratnabali";
 
         this.state = {
@@ -51,11 +50,12 @@ class MainContent extends Component{
         console.log(params);
         const { shipments } = this.state;
         let data = [];
-        let temp = shipments.map( items => {
+        shipments.map(items => {
             const scan = items.scan;
             for(let i in scan){
                 data.push(scan[i]);
-            }                
+            }
+            return 1;
         });
         console.log(typeof obj, typeof data);
     }
@@ -65,9 +65,10 @@ class MainContent extends Component{
 
         const { shipments } = this.state;
         let dataArray = [];
-        let temp = shipments.map( items =>{
+        shipments.map( items =>{
             const scan = items.scan;
             dataArray = scan;
+            return 1;
         });
         let i, j, count = [];
 
@@ -83,7 +84,6 @@ class MainContent extends Component{
         }
 
         let k = 0;
-        const filters= ["OOD", "INT", "DEL", "DEX", "NFI"];
         let counters = {
             ood: 0,
             intt: 0,
@@ -92,7 +92,7 @@ class MainContent extends Component{
             nfi: 0,
         };
 
-        const code = shipments.map( items => {
+        shipments.map( items => {
             switch(items.current_status_code){
                 case "DEL" : counters.del++;
                 break;
@@ -104,7 +104,9 @@ class MainContent extends Component{
                 break;
                 case "NFI" : counters.nfi++;
                 break;
+                default: break;
             }
+            return 1;
         });
 
 
