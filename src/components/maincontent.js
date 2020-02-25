@@ -16,8 +16,10 @@ class MainContent extends Component{
         this.email = "ratnabalidutta26@gmail.com";
         this.name = "ratnabali";
 
+        this.ITEMS = [];
         this.state = {
-            shipments: []
+            shipments: [],
+            STAT: 'Delivered',
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -41,31 +43,35 @@ class MainContent extends Component{
              config
         ).then(res => {
             const items = res.data.data;
-            this.setState({shipments: items});
+            this.setState({shipments: items, STAT: "Delivered"});
         })
         .catch((err) => console.log(err));
     }
 
     handleClick = params => (e) => {
-        console.log(params);
-        const { shipments } = this.state;
-        let data = [];
-        shipments.map(items => {
-            const scan = items.scan;
-            for(let i in scan){
-                data.push(scan[i]);
-            }
-            return 1;
-        });
-        console.log(typeof obj, typeof data);
+        let s = 'NULL'
+        const { shipments, STAT } = this.state;
+        switch(params){
+            case 'DEL': this.setState({shipments: shipments, STAT:'Delivered'});
+            break;
+            case 'INT': this.setState({shipments: shipments, STAT:'In Transit'});
+            break;
+            case 'OOD': this.setState({shipments: shipments, STAT:'Out for Delivery'});
+            break;
+            case 'DEX': this.setState({shipments: shipments, STAT:'Undelivered'});
+            break;
+            case 'NFI': this.setState({shipments: shipments, STAT:'No Information Yet'});
+            break;
+            default : this.setState({shipments: shipments, STAT:'Delivered'});
+        }
     }
 
 
     render() {
 
-        const { shipments } = this.state;
+        const { shipments, STAT } = this.state;
         let dataArray = [];
-        shipments.map( items =>{
+        shipments.map( items => {
             const scan = items.scan;
             dataArray = scan;
             return 1;
@@ -74,13 +80,10 @@ class MainContent extends Component{
 
         for(i in shipments){
             let t = shipments[i].scan;
-            console.log(`${i}th`)
             for(j in t){
                 const { time, location } = t[j];
-                console.log("Time:", time, "Location:", location);
             }
             count.push(parseInt(j) + 1);
-            console.log(count);
         }
 
         let k = 0;
@@ -113,8 +116,12 @@ class MainContent extends Component{
         return(
             <div className="container-fluid">
             <div className = "d-flex justify-content-center">
-            
-               <Card type = "DEL" num = {counters.del} onClick={this.handleClick("DEL")}/>
+
+               <Card
+                     type = "DEL"
+                     num = {counters.del}
+                     onClick={this.handleClick("DEL")}
+               />
                <Card type = "INT" num = {counters.intt} onClick={this.handleClick("INT")} />
                <Card type = "OOD" num = {counters.ood} onClick={this.handleClick("OOD")}/>
                <Card type = "DEX" num = {counters.dex} onClick={this.handleClick("DEX")}/>
@@ -122,12 +129,11 @@ class MainContent extends Component{
             </div>
             <div className="row">
             <div className="col-4 timeline-view">
-            
-            
+
             <img src = {destination} height="40" width="40" alt="destination" 
                  className="timeline-icon d-flex justify-content-start" />
 
-            {dataArray.slice(0, count[k] + 3).map((items, index) => {
+            {dataArray.map((items, index) => {
                 console.log(count[k]);
                 const {time, location} = items;
                 const  date = new Date(time);
@@ -148,7 +154,7 @@ class MainContent extends Component{
 
             <img src = {warehouse} height="40" width="40" alt="warehouse"
                  className="timeline-icon d-flex justify-content-start" />
-            
+
             </div>
             <div className="col-8">
             <table className="table-responsive">
@@ -168,7 +174,7 @@ class MainContent extends Component{
                     const { _id, awbno, carrier, pickup_date, current_status, from, to } = items;
                     const time = new Date(pickup_date);
                     const format = time.toLocaleDateString({day: 'numeric'});
-                        return(
+                       if (current_status === STAT) return(
                             <React.Fragment>
                                 <Table
                                     key = {_id}
