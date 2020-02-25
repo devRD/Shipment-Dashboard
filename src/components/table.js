@@ -5,7 +5,7 @@ const Table = (props) => {
                     : (props.stat === 'Undelivered') ? 'text-danger' 
                     : 'text-info';
     return(
-     <tbody className="ml-5">
+     <tbody className="ml-5" onClick={props.onClick}>
          <tr className="text-center">
             <td>{props.awb}</td>
             <td>{props.transport}</td>

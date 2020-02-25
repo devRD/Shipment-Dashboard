@@ -20,6 +20,7 @@ class MainContent extends Component{
         this.state = {
             shipments: [],
             STAT: 'Delivered',
+            AWB: 68816237,
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -43,40 +44,57 @@ class MainContent extends Component{
              config
         ).then(res => {
             const items = res.data.data;
-            this.setState({shipments: items, STAT: "Delivered"});
+            this.setState({shipments: items, STAT: "Delivered", AWB: 68816237});
         })
         .catch((err) => console.log(err));
     }
 
     handleClick = params => (e) => {
-        let s = 'NULL'
-        const { shipments, STAT } = this.state;
+        const { shipments, STAT , AWB} = this.state;
         switch(params){
-            case 'DEL': this.setState({shipments: shipments, STAT:'Delivered'});
+            case 'DEL': this.setState({shipments: shipments, STAT:'Delivered', AWB: AWB});
             break;
-            case 'INT': this.setState({shipments: shipments, STAT:'In Transit'});
+            case 'INT': this.setState({shipments: shipments, STAT:'In Transit', AWB: AWB});
             break;
-            case 'OOD': this.setState({shipments: shipments, STAT:'Out for Delivery'});
+            case 'OOD': this.setState({shipments: shipments, STAT:'Out for Delivery', AWB: AWB});
             break;
-            case 'DEX': this.setState({shipments: shipments, STAT:'Undelivered'});
+            case 'DEX': this.setState({shipments: shipments, STAT:'Undelivered', AWB: AWB});
             break;
-            case 'NFI': this.setState({shipments: shipments, STAT:'No Information Yet'});
+            case 'NFI': this.setState({shipments: shipments, STAT:'No Information Yet', AWB: AWB});
             break;
-            default : this.setState({shipments: shipments, STAT:'Delivered'});
+            default : this.setState({shipments: shipments, STAT:'Delivered', AWB: AWB});
         }
     }
 
+    handleRow = params => (e) => {
+       const { shipments, STAT, AWB } = this.state;
+       if (STAT != 'No Information Yet'){
+           this.setState({shipments: shipments, STAT: STAT, AWB: params})
+       }
+       else return 0;
+    }
 
     render() {
 
-        const { shipments, STAT } = this.state;
-        let dataArray = [];
-        shipments.map( items => {
-            const scan = items.scan;
-            dataArray = scan;
-            return 1;
-        });
+        const { shipments, STAT, AWB } = this.state;
         let i, j, count = [];
+        let scan = [], scanArray = [];
+        if (STAT == 'No Information Yet'){
+              scan = [{time: "0-0-0 00:00:00:00",
+                       location: "No information",
+                       status_detail: "NO INFORMATION YET"
+                     }]
+              scanArray[0] = scan;
+        }
+        else {
+              shipments.map((items, index) => {
+                if(items.awbno == AWB){
+                   scan = items.scan;
+                   scanArray[index] = scan;
+                }
+        });
+        }
+
 
         for(i in shipments){
             let t = shipments[i].scan;
@@ -85,7 +103,6 @@ class MainContent extends Component{
             }
             count.push(parseInt(j) + 1);
         }
-
         let k = 0;
         let counters = {
             ood: 0,
@@ -133,16 +150,15 @@ class MainContent extends Component{
             <img src = {destination} height="40" width="40" alt="destination" 
                  className="timeline-icon d-flex justify-content-start" />
 
-            {dataArray.map((items, index) => {
-                console.log(count[k]);
-                const {time, location} = items;
+            {scan.map((scanArray) => {
+                const {time, location} = scanArray;
                 const  date = new Date(time);
                 let format = date.toLocaleDateString({day: "numeric"});
+
                 let formatTime = date.toLocaleTimeString();
-                   return (
+                return (
                        <React.Fragment>
-                           <Timeline  
-                                    key={index + 1}
+                           <Timeline
                                     scanStat = {location}
                                     scanDate = {format}
                                     scanTime = {formatTime}
@@ -186,6 +202,7 @@ class MainContent extends Component{
                                     start = {format}
                                     etd = {format}
                                     stat = {current_status}
+                                    onClick = {this.handleRow(awbno)}
                                  />
                             </React.Fragment>
                         )
